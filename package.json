@@ -1,0 +1,35 @@
+{
+  "name": "brain-fuck-as-service",
+  "version": "1.0.0",
+  "description": "brain fuck as service",
+  "main": "./src/server.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mum-never-proud/brain-fuck-as-service.git"
+  },
+  "keywords": [
+    "brain",
+    "fuck",
+    "js",
+    "service"
+  ],
+  "author": "mum-never-proud",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mum-never-proud/brain-fuck-as-service/issues"
+  },
+  "homepage": "https://github.com/mum-never-proud/brain-fuck-as-service#readme",
+  "dependencies": {
+    "chalk": "4.0.0",
+    "express": "4.17.1",
+    "express-boom": "3.0.0",
+    "lowdb": "1.0.0",
+    "morgan": "1.10.0"
+  },
+  "devDependencies": {
+    "eslint": "7.1.0"
+  }
+}
