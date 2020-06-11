@@ -5,7 +5,9 @@ export default function (program, input, config = {}) {
 
   return new Promise((resolve, reject) => {
     try {
-      resolve($bf.compile());
+      const output = $bf.compile();
+
+      resolve(output);
     } catch (err) {
       reject(err.message);
     }

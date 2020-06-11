@@ -1,3 +1,24 @@
 {
-  "instructions": []
+  "instructions": [
+    {
+      "id": "uJ2fsrzSa",
+      "tokens": [
+        "oink.",
+        "oink?",
+        "oink!"
+      ],
+      "instructions": {
+        "instructionPointerUp": "oink. oink?",
+        "instructionPointerDown": "oink? oink.",
+        "memoryPointerUp": "oink. oink.",
+        "memoryPointerDown": "oink! oink!",
+        "input": "",
+        "output": "oink! oink.",
+        "loopStart": "oink! oink?",
+        "loopEnd": "oink? oink!"
+      },
+      "wordCount": 2,
+      "splitter": " "
+    }
+  ]
 }

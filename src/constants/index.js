@@ -1,16 +1,16 @@
 export const validConfigFields = [
   'tokens',
   ['instructions', [
-    'inc_instruction_ptr',
-    'dec_instruction_ptr',
-    'inc_memory_ptr',
-    'dec_memory_ptr',
+    'instructionPointerUp',
+    'instructionPointerDown',
+    'memoryPointerUp',
+    'memoryPointerDown',
     'input',
     'output',
-    'loop_start',
-    'loop_end'
+    'loopStart',
+    'loopEnd'
     ]
   ],
-  'word_count',
+  'wordCount',
   'splitter'
 ];

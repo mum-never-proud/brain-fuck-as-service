@@ -5,7 +5,7 @@
   "main": "./src/server.js",
   "scripts": {
     "dev": "./node_modules/.bin/nodemon --exec babel-node ./src/server.js",
-    "start": "./node_modules/.bin/nodemon --exec babel-node ./src/server.js",
+    "start": "babel-node ./src/server.js",
     "test": "jest"
   },
   "repository": {
@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/mum-never-proud/brain-fuck-as-service#readme",
   "dependencies": {
+    "brain-fuck": "https://github.com/mum-never-proud/brain-fuck.git#service",
     "body-parser": "1.19.0",
     "chalk": "4.0.0",
     "dotenv": "8.2.0",

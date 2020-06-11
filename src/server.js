@@ -16,6 +16,7 @@ app.use(boom());
 app.use(morgan('combined'));
 
 app.use('/brain-fuck', brainFuckRoute);
+app.use('*', (_, res) => res.boom.notFound());
 
 app.listen(APP_PORT, () => console.log(chalk
   `{bold.blue ${APP_NAME} listening on port ${APP_PORT} @ ${Date.now()}}`
