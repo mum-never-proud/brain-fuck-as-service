@@ -2,7 +2,7 @@ import FileASync from 'lowdb/adapters/FileAsync';
 import lowdb from 'lowdb';
 import shortid from 'shortid';
 
-const adapter = new FileASync('db.json');
+const adapter = new FileASync('/tmp/db.json');
 const db = lowdb(adapter);
 
 db.then((fptr) => fptr.defaults({ instructions: [] }).write());
@@ -15,7 +15,7 @@ export function isDuplicateEntry (tokens) {
 }
 
 export function write (instructions) {
-  const record = { id: shortid.generate(), ...instructions };
+  const record = { ...instructions, id: shortid.generate() };
 
   return db.then((fptr) => fptr.get('instructions')
       .push(record)

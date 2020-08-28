@@ -4,8 +4,12 @@
   "description": "brain fuck as service",
   "main": "./src/server.js",
   "scripts": {
-    "dev": "./node_modules/.bin/nodemon --exec babel-node ./src/server.js",
-    "start": "babel-node ./src/server.js",
+    "build": "netlify-lambda build src",
+    "serve": "netlify-lambda serve src",
+    "dev": "netlify dev",
+    "dev-live": "netlify dev --live",
+    "deploy": "netlify deploy",
+    "deploy-prod": "netlify deploy --prod",
     "test": "jest"
   },
   "repository": {
@@ -18,11 +22,6 @@
     "js",
     "service"
   ],
-  "nodemonConfig": {
-    "ignore": [
-      "db.json"
-    ]
-  },
   "author": "mum-never-proud",
   "license": "ISC",
   "bugs": {
@@ -30,21 +29,20 @@
   },
   "homepage": "https://github.com/mum-never-proud/brain-fuck-as-service#readme",
   "dependencies": {
-    "brain-fuck": "https://github.com/mum-never-proud/brain-fuck.git#service",
     "body-parser": "1.19.0",
+    "brain-fuck": "https://github.com/mum-never-proud/brain-fuck.git#service",
     "chalk": "4.0.0",
     "dotenv": "8.2.0",
     "express": "4.17.1",
     "express-boom": "3.0.0",
     "lowdb": "1.0.0",
     "morgan": "1.10.0",
+    "serverless-http": "2.5.0",
     "shortid": "2.2.15"
   },
   "devDependencies": {
-    "@babel/core": "7.10.2",
-    "@babel/node": "7.10.1",
-    "@babel/preset-env": "7.10.2",
     "eslint": "7.1.0",
-    "nodemon": "2.0.4"
+    "netlify-cli": "2.59.1",
+    "netlify-lambda": "2.0.1"
   }
 }

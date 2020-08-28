@@ -7,7 +7,7 @@ import brainFuckCreateValidator from './validators/brain-fuck-create';
 
 const router = Router();
 
-router.post('/', brainFuckCreateValidator, (req, res) => {
+router.post('/create', brainFuckCreateValidator, (req, res) => {
   isDuplicateEntry(req.body.tokens)
     .then((record) => record ? Promise.resolve(record) : write(req.body))
     .then((record) => Promise.all([ record.id, brainFuckConverter(record) ]))
@@ -15,7 +15,7 @@ router.post('/', brainFuckCreateValidator, (req, res) => {
         compiler_id,
         hello_world,
         timestamp: Date.now()
-      }).status(200)
+      }).status(201)
     )
     .catch((e) => {
       console.log(chalk`{bold.red error saving config: ${e}}`);
