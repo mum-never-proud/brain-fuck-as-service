@@ -10,10 +10,12 @@ import brainFuckRoute from './routes/brain-fuck';
 dotenv.config();
 
 const app = express();
-const whiteListedOrigins = ['https://app.netlify.com/brain-phuck/*', 'https://mum-never-proud.github.io/*'];
+const whiteListedOrigins = ['https://mum-never-proud.github.io'];
 const corsOptions = {
   origin(origin, callback) {
-    if (process.env.NODE_ENV === development || whiteListedOrigins.includes(origin)) {
+    if (process.env.NODE_ENV === 'development'
+      || process.env.NODE_ENV === 'production'
+      || whiteListedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error('not allowed'));
