@@ -1,0 +1,264 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>brain-fuck-as-service</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" type="text/css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/gh/mum-never-proud/unified-demo-theme/dist/styles/theme.min.css" rel="stylesheet" type="text/css" />
+  </head>
+  <style>
+    #compiler-create-form form {
+      padding: 15px;
+      border: 1px solid #e1e1e1;
+      border-radius: 5px;
+      position: relative;
+    }
+
+    #create-compiler-error-field {
+      display: none;
+      white-space: pre;
+      overflow: auto;
+    }
+
+    #autofill {
+      position: fixed;
+      left: 15px;
+      bottom: 15px;
+      z-index: 1;
+    }
+
+    #next-steps {
+      position: absolute;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      flex-wrap: wrap;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      padding: 15px;
+      background-color: rgba(255, 255, 255, 0.9);
+      z-index: 1;
+    }
+
+    .request-url {
+      background-color: #ccc;
+      overflow: auto;
+      padding: 20px;
+      word-break: break-all;
+    }
+  </style>
+  <body>
+    <div class="header">
+      <h1 class="text-center">brain-fuck-as-service</h1>
+    </div>
+    <div class="container">
+      <div class="row mt-3">
+        <div class="col-12">
+          <p class="text-center">create your own esoteric language</p>
+        </div>
+      </div>
+      <div id="compiler-create-form" class="row mt-3 d-flex justify-content-center">
+        <div class="col-lg-6">
+          <form>
+            <div id="next-steps">
+              <span class="spinner"></span>
+            </div>
+            <div class="form-group">
+              <div class="alert alert-info text-center">
+                To know more about brain-fuck <a href="https://en.wikipedia.org/wiki/Brainfuck" target="_blank" rel="noopener">click here</a>.
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="increment instruction pointer">Increment Instruction Pointer</label>
+              <input id="iip" type="text" class="form-control" placeholder=">" />
+            </div>
+            <div class="form-group">
+              <label for="decrement instruction pointer">Decrement Instruction Pointer</label>
+              <input id="dip" type="text" class="form-control" placeholder="<" />
+            </div>
+            <div class="form-group">
+              <label for="increment memory">Increment Memory</label>
+              <input id="im" type="text" class="form-control" placeholder="+" />
+            </div>
+            <div class="form-group">
+              <label for="decrement memory">Decrement Instruction Pointer</label>
+              <input id="dm" type="text" class="form-control" placeholder=">" />
+            </div>
+            <div class="form-group">
+              <label for="loop start">Loop Start</label>
+              <input id="ls" type="text" class="form-control" placeholder="[" />
+            </div>
+            <div class="form-group">
+              <label for="loop end">Loop End</label>
+              <input id="le" type="text" class="form-control" placeholder="]" />
+            </div>
+            <div class="form-group">
+              <label for="input">Input</label>
+              <input id="ip" type="text" class="form-control" placeholder="," />
+            </div>
+            <div class="form-group">
+              <label for="output">Output</label>
+              <input id="op" type="text" class="form-control" placeholder="." />
+            </div>
+            <div class="form-group">
+              <label for="word count">Word Count</label>
+              <input id="wc" type="number" class="form-control" placeholder="1" />
+            </div>
+            <div class="form-group">
+              <label for="delimeter">Delimiter</label>
+              <input id="delimeter" type="text" class="form-control" placeholder="none" />
+            </div>
+            <div id="create-compiler-error-field" class="form-group alert alert-danger"></div>
+            <div class="form-group">
+              <button id="create-compiler" class="btn btn-primary">Create</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <button class="btn btn-primary" id="autofill">Autofill</button>
+      <div class="row mt-5">
+        <div class="col-12">
+          <footer>
+            <p class="text-center">made with much<img alt="logo" src="https://cdn.jsdelivr.net/gh/mum-never-proud/unified-demo-theme@latest/dist/images/icecream-love.svg" width="50" height="50">
+            </p>
+          </footer>
+        </div>
+      </div>
+    </div>
+    <script>
+      (function () {
+        const instructionFields = [
+          'instructionPointerUp', 'instructionPointerDown',
+          'memoryPointerUp', 'memoryPointerDown',
+          'loopStart', 'loopEnd',
+          'input', 'output',
+          'wordCount', 'splitter'
+        ];
+        const iip = document.getElementById('iip');
+        const dip = document.getElementById('dip');
+        const im = document.getElementById('im');
+        const dm = document.getElementById('dm');
+        const ls = document.getElementById('ls');
+        const le = document.getElementById('le');
+        const ip = document.getElementById('ip');
+        const op = document.getElementById('op');
+        const wc = document.getElementById('wc');
+        const delimeter = document.getElementById('delimeter');
+        const createCompilerErrorField = document.getElementById('create-compiler-error-field');
+        const compilerCreateForm = document.getElementById('compiler-create-form');
+        const nextSteps = document.getElementById('next-steps');
+        const autofillBtn = document.getElementById('autofill');
+
+        function autoFill() {
+          iip.value = 'oink. oink.';
+          dip.value = 'oink! oink!';
+          im.value = 'oink. oink?';
+          dm.value = 'oink? oink.';
+          ls.value = 'oink! oink?';
+          le.value = 'oink? oink!';
+          ip.value = 'oink! oink.';
+          op.value = 'oink. oink!';
+          wc.value = 2;
+          delimeter.value = ' ';
+        }
+
+        function request(url, data) {
+          return fetch(url, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          });
+        }
+
+        function constructTokens() {
+          return [
+            iip.value || '>',
+            dip.value || '<',
+            im.value || '+',
+            dm.value || '-',
+            ls.value || '[',
+            le.value || ']',
+            ip.value || '.',
+            op.value || ',',
+            wc.value || 1,
+            delimeter.value || ''
+          ];
+        }
+
+        function constructInstructions(tokens) {
+          return  instructionFields.reduce((a, b, i) => {
+            a[b] = tokens[i];
+
+            return a;
+          }, {});
+        }
+
+        function constructRequestPayload() {
+          const tokens = constructTokens();
+
+          return {
+            tokens: tokens,
+            instructions: constructInstructions(tokens),
+            wordCount: wc.value,
+            splitter: delimeter.value
+          };
+        }
+
+        function createCompiler() {
+          createCompilerErrorField.style.display = 'none';
+          autofillBtn.style.display = 'none';
+          nextSteps.style.display = 'flex';
+
+          request(
+            `${window.location.origin}/.netlify/functions/app/create`,
+            constructRequestPayload()
+          )
+            .then(res => res.json())
+            .then(res => {
+              if (res.statusCode > 299) {
+                createCompilerErrorField.style.display = 'block';
+                createCompilerErrorField.innerHTML = JSON.stringify(res, null, 4);
+                nextSteps.style.display = 'none';
+                autofillBtn.style.display = 'block';
+              } else {
+                const nextStepsInfo = `
+                  <p class="mt-3"><span class="font-weight-bold">Compiler ID</span>: ${res.compiler_id}</p>
+                  <h3 class="text-center">next steps...</h3>
+                  <div style="word-break: break-word; padding: 15px;">
+                    <ol style="margin: 0; padding: 0;">
+                      <li>
+                        <a href="https://mum-never-proud.github.io/brain-fuck?cid=${res.compiler_id}&program=${res.hello_world}" target="_blank" rel="noopener">
+                          Click here
+                        </a> to visit the compiler create and run the <b>hello world</b> program.
+                      </li>
+                      <li>You can also hit endpoint with any API verfication tool like Postman, Insomnia etc...</li>
+                    </ol>
+                    <div class="mt-3">
+                      <span class="text-warning font-weight-bold mt-3">POST</span> Compile Endpoint
+                      <div class="request-url mt-3">
+                        https://brain-phuck-as-service.netlify.app/.netlify/functions/app/compile/${res.compiler_id}
+                      </div>
+                    </div>
+                  </div>
+                `;
+
+                nextSteps.innerHTML = nextStepsInfo;
+              }
+            });
+        }
+
+        document.getElementById('create-compiler').addEventListener('click', e => {
+          e.preventDefault();
+          createCompiler();
+        });
+        autofillBtn.addEventListener('click', autoFill);
+      })();
+    </script>
+  </body>
+  </html>

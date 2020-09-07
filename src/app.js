@@ -10,8 +10,18 @@ import brainFuckRoute from './routes/brain-fuck';
 dotenv.config();
 
 const app = express();
+const whiteListedOrigins = ['https://app.netlify.com/brain-phuck/*', 'https://mum-never-proud.github.io/*'];
+const corsOptions = {
+  origin(origin, callback) {
+    if (process.env.NODE_ENV === development || whiteListedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('not allowed'));
+    }
+  }
+};
 
-app.use(cors({ origin: 'https://mum-never-proud.github.io', optionsSuccessStatus: 200 }));
+app.use(cors(corsOptions));
 app.use(bodyParser.json({ type: 'application/json'}));
 app.use(boom());
 app.use(morgan('combined'));

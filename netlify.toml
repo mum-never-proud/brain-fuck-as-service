@@ -1,8 +1,8 @@
 [build]
   command = "npm run build"
-  public = "public"
+  publish = "public"
   functions = "functions"
 [[redirects]]
   from = "/*"
-  to = "/.netlify/functions/app"
-  status = 404
+  to = "https://brain-phuck-as-service.netlify.app/"
+  status = 200
